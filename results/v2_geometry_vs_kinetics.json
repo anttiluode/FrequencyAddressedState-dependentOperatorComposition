@@ -4,6 +4,7 @@
   "design": {
     "full": "lengths 5/7/9/11 plus branch-specific g/d/c",
     "geometry_only": "lengths 5/7/9/11; identical component-wise median g/d/c",
+    "geometry_reference_sweep": "repeat geometry-only using each original branch kinetic tuple as the shared kinetics",
     "kinetics_only": "all branches length 8; original branch-specific g/d/c",
     "uniform": "all branches length 8; identical component-wise median g/d/c"
   },
@@ -41,14 +42,78 @@
       "order_to_jitter_ratio": 5.017161220281
     }
   },
+  "geometry_reference_sweep": [
+    {
+      "reference_index": 0,
+      "shared_kinetics": {
+        "g": 0.13960124004916397,
+        "d": 0.9185656230911622,
+        "c": 0.08104556966507002
+      },
+      "address_effective_rank": 1.057752967116812,
+      "gain_normalized_address_rank": 1.7722966594555438,
+      "operator_write_effective_rank": 1.0872716570528929,
+      "material_write_effective_rank": 1.0936180032637435,
+      "commutator_ratio": 0.0665658392624123,
+      "max_fast_residual_after_settle": 1.470060993391979e-17
+    },
+    {
+      "reference_index": 1,
+      "shared_kinetics": {
+        "g": 0.38626925720616234,
+        "d": 0.9380414177664963,
+        "c": 0.09311277644010527
+      },
+      "address_effective_rank": 1.1072061646857476,
+      "gain_normalized_address_rank": 1.7754625975511342,
+      "operator_write_effective_rank": 1.14309402310024,
+      "material_write_effective_rank": 1.1538639327674527,
+      "commutator_ratio": 0.06504289526234978,
+      "max_fast_residual_after_settle": 2.683018071079205e-9
+    },
+    {
+      "reference_index": 2,
+      "shared_kinetics": {
+        "g": 0.4175518164125044,
+        "d": 0.9139470695843545,
+        "c": 0.17210258407443785
+      },
+      "address_effective_rank": 1.1748871421126887,
+      "gain_normalized_address_rank": 1.878030689340322,
+      "operator_write_effective_rank": 1.1734756015842966,
+      "material_write_effective_rank": 1.1718610977423103,
+      "commutator_ratio": 0.04365265766177899,
+      "max_fast_residual_after_settle": 8.136281163874071e-7
+    },
+    {
+      "reference_index": 3,
+      "shared_kinetics": {
+        "g": 0.5492018255250434,
+        "d": 0.8826229468455242,
+        "c": 0.1999997881613304
+      },
+      "address_effective_rank": 1.2045172771016965,
+      "gain_normalized_address_rank": 1.6763840005778474,
+      "operator_write_effective_rank": 1.2337314719291173,
+      "material_write_effective_rank": 1.183088097859569,
+      "commutator_ratio": 0.036427273015132704,
+      "max_fast_residual_after_settle": 0.000010300445467253915
+    }
+  ],
+  "sweep_summary": {
+    "max_raw_address_rank": 1.2045172771016965,
+    "max_gain_normalized_address_rank": 1.878030689340322
+  },
   "findings": {
     "geometry_only_address_gate_passes": false,
     "geometry_only_gain_normalized_shape_gate_passes": false,
+    "all_original_shared_kinetics_raw_address_rank_below_1_5": true,
+    "all_original_shared_kinetics_gain_normalized_rank_below_2": true,
     "kinetics_only_preserves_high_address_rank": true,
     "full_operator_family_exceeds_kinetics_only_by_at_least_0_5": true,
     "geometry_only_can_remain_order_dependent_without_being_a_good_address": true,
     "uniform_control_address_rank_is_one": true
   },
   "verdict": "GEOMETRY_ONLY_ADDRESS_HYPOTHESIS_NOT_SUPPORTED",
-  "claim_boundary": "Under the tested lengths, distal-input/proximal-readout interface and shared median kinetics, morphology alone does not carry the strong four-way frequency address. Kinetic heterogeneity does. Morphology still increases written-operator richness when combined with kinetic diversity."
+  "claim_boundary": "For the tested lengths and interface, morphology alone does not carry the strong four-way spectral address across median shared kinetics or any of the four original kinetic tuples used uniformly. Kinetic heterogeneity carries the address; morphology enriches written-operator dimensionality when kinetic diversity is present."
 }
