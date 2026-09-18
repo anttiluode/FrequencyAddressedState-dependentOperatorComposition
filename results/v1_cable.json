@@ -1,0 +1,41 @@
+{
+  "experiment": "v1_heterogeneous_quasi_active_cable_operator_composition",
+  "seed": 20260918,
+  "metrics": {
+    "heterogeneous_local_cable": {
+      "address_effective_rank": 3.977218590346758,
+      "operator_write_effective_rank": 2.5809808523945814,
+      "material_write_effective_rank": 2.904142161763569,
+      "commutator_ratio": 0.06120145337764039,
+      "order_to_jitter_ratio": 3.6015378961384967,
+      "max_fast_residual_after_settle": 0.000004752816364698165
+    },
+    "global_scalar_state_attacker": {
+      "operator_write_effective_rank": 1.1175612779715525,
+      "commutator_ratio": 0.02104585134016107,
+      "order_to_jitter_ratio": 1.89456497015377
+    },
+    "frozen_operator_attacker": {
+      "operator_write_effective_rank": 0,
+      "commutator_ratio": 0,
+      "order_to_jitter_ratio": 0
+    },
+    "homogeneous_branch_attacker": {
+      "address_effective_rank": 1,
+      "operator_write_effective_rank": 1.141299464502876,
+      "commutator_ratio": 0.06448455356961938
+    }
+  },
+  "criteria": {
+    "heterogeneous_address_rank_at_least_3": true,
+    "local_operator_write_rank_at_least_2_3": true,
+    "local_commutator_ratio_at_least_0_04": true,
+    "local_order_exceeds_jitter_by_2_5x": true,
+    "fast_state_settled_below_1e_5": true,
+    "frozen_commutator_below_1e_9": true,
+    "global_operator_write_rank_below_1_5": true,
+    "homogeneous_address_rank_below_1_1": true
+  },
+  "verdict": "PASS_V1_CABLE_OPERATOR_COMPOSITION_GATE",
+  "note": "Compact committed receipt. Running cable_experiment writes the full diagnostic JSON. Slow state is compartment-local; there is no explicit frequency-indexed slow register."
+}
