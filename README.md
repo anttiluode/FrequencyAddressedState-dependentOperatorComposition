@@ -58,6 +58,56 @@ The pattern is the useful part.
 
 So v1 recovers the v0 pattern in an actual cable-shaped dynamical substrate without inserting the frequency-slot memory that made the earlier engineering version too easy.
 
+## v2 — does cable geometry itself carry the frequency address?
+
+This was the obvious attacker after v1. The original four branches differed in two ways at once: **morphology** (length 5/7/9/11) and **quasi-active kinetics** (`g,d,c`). v2 factorizes them:
+
+| arm | geometry | quasi-active kinetics |
+|---|---|---|
+| full | different | different |
+| geometry-only | different lengths 5/7/9/11 | identical median `g,d,c` |
+| kinetics-only | identical length 8 | original different `g,d,c` |
+| uniform | identical | identical |
+
+The geometry-only arm was the test of the strong version of the cable intuition. It failed.
+
+I then repeated that control four more times rather than letting the answer depend on the median kinetic tuple: every branch was given the exact quasi-active kinetics of original branch 0, then branch 1, branch 2, and branch 3, while retaining only the 5/7/9/11 length differences.
+
+| shared kinetics source | raw address rank | gain-normalized address rank | written-operator rank |
+|---|---:|---:|---:|
+| original branch 0 | 1.058 | 1.772 | 1.087 |
+| original branch 1 | 1.107 | 1.775 | 1.143 |
+| original branch 2 | 1.175 | 1.878 | 1.173 |
+| original branch 3 | 1.205 | 1.676 | 1.234 |
+
+So the strongest raw geometry-only address across all four original kinetic regimes is only **1.205**, and the strongest gain-normalized diagnostic reaches only **1.878**. The conclusion is therefore not an artifact of choosing the median shared kinetics.
+
+| quantity | full | geometry-only | kinetics-only | uniform |
+|---|---:|---:|---:|---:|
+| raw frequency-address rank | **3.977** | **1.084** | **4.000** | **1.000** |
+| gain-normalized address rank | 3.993 | **1.760** | 3.997 | 1.000 |
+| written-operator rank | **2.581** | **1.079** | **1.821** | 1.086 |
+| local material-write rank | 2.904 | 1.108 | **2.905** | 1.104 |
+| A→B/B→A commutator ratio | 0.0612 | 0.0428 | 0.0437 | 0.0421 |
+| paired order effect / jitter | 3.602x | **5.092x** | 2.935x | 5.017x |
+
+Verdict: **GEOMETRY_ONLY_ADDRESS_HYPOTHESIS_NOT_SUPPORTED**
+
+Two details matter.
+
+First, the failure is not just longer branches being attenuated harder. v2 also computes a diagnostic that statically RMS-normalizes every branch before asking about spectral shape. The median-kinetics geometry-only arm rises from 1.084 to only **1.760 effective address dimensions**, and the four exact-original-kinetics controls never exceed **1.878**, all well below the predeclared 2.5 gate. The strong four-way address therefore does not come from path length alone under this interface.
+
+Second, geometry-only remains strongly order-dependent: its A→B/B→A effect is about **5.09x** matched write jitter. That is another clean demonstration that noncommutativity is weaker than addressability. A homogeneous or near-one-dimensional system can have path dependence without possessing a useful multi-address operator family.
+
+The surprising side result goes the other direction. **Kinetic heterogeneity alone preserves essentially all four frequency addresses** (rank 3.9999) even when every branch has the same length. But its written-operator family is only 1.821-dimensional. Adding morphology back raises that to 2.581. So in this construction:
+
+```text
+quasi-active kinetics carries the spectral address
+morphology enriches the family of operators written through that address
+```
+
+That is a much narrower and more useful statement than “the cable does it.”
+
 ## What this establishes — and what it does not
 
 The synthetic statement is now narrower and stronger:
@@ -69,14 +119,14 @@ The synthetic statement is now narrower and stronger:
         -> next packet sees a state-conditioned operator
         -> A then B differs from B then A after fast state is gone
 
-It still does not establish that real dendrites use frequency carriers this way, that this slow material law corresponds to a particular biological mechanism, or that the architecture is computationally preferable to a standard state-space system. The next useful attacker is therefore not another biological embellishment. It is a matched ordinary dynamical system asked to reproduce the same externally observable operator family and composition under the same state budget.
+It still does not establish that real dendrites use frequency carriers this way, that this slow material law corresponds to a particular biological mechanism, or that the architecture is computationally preferable to a standard state-space system. v2 also rules out a stronger claim we might otherwise have smuggled in: in the current construction, cable length alone is not the load-bearing spectral address. The next useful attacker is a matched ordinary dynamical/state-space system asked to reproduce the same externally observable operator family and noncommuting composition under the same state budget.
 
 ## Run
 
     python -m pip install -e '.[test]'
     pytest -q
     python -m frequency_operator_composition.experiment --output results/v0.json
-    python -m frequency_operator_composition.cable_experiment --output results/v1_cable.json
+    python -m frequency_operator_composition.cable_experiment --output results/v1_cable.json\n    python -m frequency_operator_composition.geometry_vs_kinetics --output results/v2_geometry_vs_kinetics.json
 
 The committed receipts are compact summaries. Running either experiment writes the full deterministic diagnostic JSON.
 
@@ -85,7 +135,7 @@ The committed receipts are compact summaries. Running either experiment writes t
     src/frequency_operator_composition/core.py              reduced v0 resident modes
     src/frequency_operator_composition/experiment.py        v0 gate + attackers
     src/frequency_operator_composition/cable.py             v1 quasi-active cables
-    src/frequency_operator_composition/cable_experiment.py  v1 gate + attackers
+    src/frequency_operator_composition/cable_experiment.py  v1 gate + attackers\n    src/frequency_operator_composition/geometry_vs_kinetics.py  v2 morphology/kinetics factorization
     tests/                                                   mechanism and frozen-gate tests
     results/                                                 compact committed receipts
     index.html                                               static result microscope
