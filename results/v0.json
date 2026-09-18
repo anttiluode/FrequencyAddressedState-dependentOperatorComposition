@@ -1,0 +1,39 @@
+{
+  "experiment": "v0_frequency_addressed_state_dependent_operator_composition",
+  "seed": 20260918,
+  "metrics": {
+    "full_local_state": {
+      "address_effective_rank": 3.4432145233926184,
+      "operator_write_effective_rank": 3.0779965328947574,
+      "commutator_ratio": 0.5637941195919108,
+      "order_to_jitter_ratio": 3.373822153539027
+    },
+    "global_scalar_state_attacker": {
+      "address_effective_rank": 3.4432145233926184,
+      "operator_write_effective_rank": 1.1518894009945033,
+      "commutator_ratio": 0.11439246252554192
+    },
+    "frozen_operator_attacker": {
+      "address_effective_rank": 3.4432145233926184,
+      "operator_write_effective_rank": 0,
+      "commutator_ratio": 0,
+      "order_to_jitter_ratio": 0
+    },
+    "homogeneous_address_attacker": {
+      "address_effective_rank": 1,
+      "operator_write_effective_rank": 1.3978565916093726,
+      "commutator_ratio": 0.3094080199642862
+    }
+  },
+  "criteria": {
+    "full_address_rank_at_least_2_5": true,
+    "full_operator_write_rank_at_least_2_5": true,
+    "full_commutator_ratio_at_least_0_30": true,
+    "full_order_effect_exceeds_jitter_by_2x": true,
+    "frozen_operator_commutator_below_1e_9": true,
+    "global_operator_write_rank_below_1_5": true,
+    "homogeneous_address_rank_below_1_1": true
+  },
+  "verdict": "PASS_V0_OPERATOR_COMPOSITION_GATE",
+  "note": "Compact committed receipt. Running the experiment writes the full deterministic diagnostic JSON."
+}
