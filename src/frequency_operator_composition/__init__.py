@@ -1,3 +1,4 @@
+from .modal_ssm import AdaptiveModalSSM, run_modal_sequence
 from .cable import (
     BranchSpec,
     CableCell,
@@ -10,6 +11,8 @@ from .cable import (
 from .core import MatterConfig, ResidentModalMatter, effective_rank, run_sequence
 
 __all__ = [
+    "AdaptiveModalSSM",
+    "run_modal_sequence",
     "BranchSpec",
     "CableCell",
     "DEFAULT_BRANCHES",

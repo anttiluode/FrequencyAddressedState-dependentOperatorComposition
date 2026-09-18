@@ -5,6 +5,15 @@
 <p class="muted">frequency-addressed state-dependent operator composition</p>
 <h1>A→B is not B→A</h1>
 <div class="box">The claim only counts when frequency addresses distinct resident structure, the first write changes the operator seen by the second, and the difference survives after fast state has settled away.</div>
+<h2>v3 — cable-specificity attacker</h2>
+<table><tr><th>quantity</th><th>v1 cable</th><th>96-state modal SSM</th><th>12-state modal SSM</th></tr>
+<tr><td>real state count</td><td>96</td><td>96</td><td>12</td></tr>
+<tr><td>address rank</td><td>3.977</td><td>3.187</td><td>2.522</td></tr>
+<tr><td>written operator rank</td><td>2.581</td><td>3.306</td><td>2.998</td></tr>
+<tr><td>commutator ratio</td><td>0.0612</td><td>0.616</td><td>0.680</td></tr>
+<tr><td>order / jitter</td><td>3.602x</td><td>4.903x</td><td>33.211x</td></tr></table>
+<h2 style="color:#f2cc60">CABLE SPECIFICITY NOT SUPPORTED</h2>
+<p>A non-geometric modal state-space system reproduces the gate at the exact same state budget, and a 12-real-state version still crosses the weaker multi-address gate. The surviving ingredient is spectral/modal structure plus local adaptive rewrite, not cable geometry itself.</p>
 <h2>v2 — what actually carries the address?</h2>
 <table><tr><th>quantity</th><th>full</th><th>geometry only</th><th>kinetics only</th><th>uniform</th></tr>
 <tr><td>address rank</td><td>3.977</td><td>1.084</td><td>4.000</td><td>1.000</td></tr>
@@ -23,5 +32,5 @@
 <p>Slow state lives on cable compartments, not in an explicit frequency-slot bank. The homogeneous attacker is deliberately instructive: it can remain order-dependent while losing frequency-address structure, so order dependence alone is not the result.</p>
 <h2>v0 — reduced resident modes</h2>
 <p>v0 isolated the same mechanism before cables were introduced: address rank 3.443, written-operator rank 3.078, commutator ratio 0.564, paired order/jitter 3.374x.</p>
-<p><a href="README.md">full ledger</a> · <a href="results/v2_geometry_vs_kinetics.json">v2 receipt</a> · <a href="results/v1_cable.json">v1 receipt</a> · <a href="results/v0.json">v0 receipt</a></p>
+<p><a href="README.md">full ledger</a> · <a href="results/v3_modal_ssm.json">v3 receipt</a> · <a href="results/v2_geometry_vs_kinetics.json">v2 receipt</a> · <a href="results/v1_cable.json">v1 receipt</a> · <a href="results/v0.json">v0 receipt</a></p>
 </body></html>
