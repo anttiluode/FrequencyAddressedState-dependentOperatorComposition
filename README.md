@@ -71,6 +71,17 @@ This was the obvious attacker after v1. The original four branches differed in t
 
 The geometry-only arm was the test of the strong version of the cable intuition. It failed.
 
+I then repeated that control four more times rather than letting the answer depend on the median kinetic tuple: every branch was given the exact quasi-active kinetics of original branch 0, then branch 1, branch 2, and branch 3, while retaining only the 5/7/9/11 length differences.
+
+| shared kinetics source | raw address rank | gain-normalized address rank | written-operator rank |
+|---|---:|---:|---:|
+| original branch 0 | 1.058 | 1.772 | 1.087 |
+| original branch 1 | 1.107 | 1.775 | 1.143 |
+| original branch 2 | 1.175 | 1.878 | 1.173 |
+| original branch 3 | 1.205 | 1.676 | 1.234 |
+
+So the strongest raw geometry-only address across all four original kinetic regimes is only **1.205**, and the strongest gain-normalized diagnostic reaches only **1.878**. The conclusion is therefore not an artifact of choosing the median shared kinetics.
+
 | quantity | full | geometry-only | kinetics-only | uniform |
 |---|---:|---:|---:|---:|
 | raw frequency-address rank | **3.977** | **1.084** | **4.000** | **1.000** |
@@ -84,7 +95,7 @@ Verdict: **GEOMETRY_ONLY_ADDRESS_HYPOTHESIS_NOT_SUPPORTED**
 
 Two details matter.
 
-First, the failure is not just longer branches being attenuated harder. v2 also computes a diagnostic that statically RMS-normalizes every branch before asking about spectral shape. Geometry-only rises from 1.084 to only **1.760 effective address dimensions**, still well below the predeclared 2.5 gate. The strong four-way address therefore does not come from path length alone under this interface.
+First, the failure is not just longer branches being attenuated harder. v2 also computes a diagnostic that statically RMS-normalizes every branch before asking about spectral shape. The median-kinetics geometry-only arm rises from 1.084 to only **1.760 effective address dimensions**, and the four exact-original-kinetics controls never exceed **1.878**, all well below the predeclared 2.5 gate. The strong four-way address therefore does not come from path length alone under this interface.
 
 Second, geometry-only remains strongly order-dependent: its A→B/B→A effect is about **5.09x** matched write jitter. That is another clean demonstration that noncommutativity is weaker than addressability. A homogeneous or near-one-dimensional system can have path dependence without possessing a useful multi-address operator family.
 
