@@ -19,3 +19,5 @@ jobs:
       - run: python -m pip install -e '.[test]'
       - run: pytest -q
       - run: python -m frequency_operator_composition.experiment --output /tmp/v0.json
+      - run: python -m frequency_operator_composition.cable_experiment --output /tmp/v1.json
+      - run: python -m frequency_operator_composition.geometry_vs_kinetics --output /tmp/v2.json
