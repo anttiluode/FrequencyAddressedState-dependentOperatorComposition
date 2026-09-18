@@ -108,6 +108,59 @@ morphology enriches the family of operators written through that address
 
 That is a much narrower and more useful statement than “the cable does it.”
 
+## v3 — matched ordinary state-space attacker
+
+v2 made the next question unavoidable: if heterogeneous local dynamics rather than cable length carries the spectral address, is there anything cable-specific left in the current gate?
+
+v3 removes geometry completely and gives a boring modal state-space system the same external protocol.
+
+The matched attacker has **32 complex resident modes**. That is 64 real fast state variables plus 32 local slow variables, exactly the same **96-real-state budget** as the v1 cable cell (32 cable compartments × voltage/recovery plus 32 material states). Its resident frequencies are spread evenly over a fixed broad band from 0.04 to 0.54; they are **not placed at the four task write frequencies**. A carrier excites the resident modes, local modal energy writes one slow scalar per resident mode, and that slow scalar detunes the later state-space operator.
+
+So it has no cable, no branch morphology and no spatial path graph. It keeps only the abstract ingredients that survived v2: separated resident modes plus local state-dependent operator rewrite.
+
+| quantity | v1 cable | matched 96-state modal SSM | compact 12-state modal SSM |
+|---|---:|---:|---:|
+| real state count | 96 | **96** | **12** |
+| frequency-address rank | **3.977** | 3.187 | 2.522 |
+| written-operator rank | 2.581 | **3.306** | **2.998** |
+| slow/material write rank | **2.904** | 2.537 | 2.373 |
+| A→B/B→A commutator ratio | 0.0612 | **0.616** | **0.680** |
+| paired order effect / jitter | 3.602x | **4.903x** | **33.211x** |
+| max fast residual after settling | 4.75e-6 | 1.19e-16 | 4.52e-18 |
+
+Verdict: **PASS_V3_MODAL_SSM_ATTACKER_CABLE_SPECIFICITY_NOT_SUPPORTED**
+
+The controls behave the same way as the cable controls. If the matched state-space model is allowed to accumulate slow state but that state is frozen out of the transfer operator, written-operator rank and the commutator both become exactly zero. If all slow state is collapsed to one global scalar, written-operator rank falls to **1.140**.
+
+The result is also not a one-seed accident. Across eight fixed random input/output gain seeds, the matched 96-state attacker has:
+
+- address rank **3.177–3.307**, median **3.263**;
+- written-operator rank **2.097–3.314**, median **2.835**;
+- commutator ratio **0.346–0.833**, median **0.628**.
+
+And the much smaller 12-real-state / four-mode attacker still has median address rank **2.559** and median written-operator rank **2.727** across the same eight seeds.
+
+This kills a second substrate-specific reading:
+
+```text
+cable geometry is not required
+large cable state budget is not required
+```
+
+What remains is more abstract:
+
+```text
+separated resident modes
+        +
+local persistent state written by modal activity
+        +
+that state causally rewrites the later operator
+        =
+frequency-addressed noncommuting operator composition
+```
+
+That is a stronger simplification than v2. But it does **not** prove that an arbitrary dense RNN or generic random state-space model automatically has the mechanism. v3 deliberately gives the boring attacker a modal state-space inductive bias. So the next boundary is no longer “cable versus no cable”; it is **explicit spectral/modal structure versus unstructured recurrence**.
+
 ## What this establishes — and what it does not
 
 The synthetic statement is now narrower and stronger:
@@ -119,7 +172,7 @@ The synthetic statement is now narrower and stronger:
         -> next packet sees a state-conditioned operator
         -> A then B differs from B then A after fast state is gone
 
-It still does not establish that real dendrites use frequency carriers this way, that this slow material law corresponds to a particular biological mechanism, or that the architecture is computationally preferable to a standard state-space system. v2 also rules out a stronger claim we might otherwise have smuggled in: in the current construction, cable length alone is not the load-bearing spectral address. The next useful attacker is a matched ordinary dynamical/state-space system asked to reproduce the same externally observable operator family and noncommuting composition under the same state budget.
+It still does not establish that real dendrites use frequency carriers this way or that this slow material law corresponds to a particular biological mechanism. v2 rules out cable length as the load-bearing spectral address, and v3 goes further: a non-geometric modal state-space model reproduces the operator-composition gate at the same state budget, while a 12-state version already crosses the weaker multi-address gate. The surviving question is therefore whether explicit modal structure is essential, or whether an unstructured recurrent system under a matched parameter/training budget can discover the same family.
 
 ## Run
 
@@ -127,6 +180,7 @@ It still does not establish that real dendrites use frequency carriers this way,
     pytest -q
     python -m frequency_operator_composition.experiment --output results/v0.json
     python -m frequency_operator_composition.cable_experiment --output results/v1_cable.json\n    python -m frequency_operator_composition.geometry_vs_kinetics --output results/v2_geometry_vs_kinetics.json
+    python -m frequency_operator_composition.state_space_attacker --output results/v3_modal_ssm.json
 
 The committed receipts are compact summaries. Running either experiment writes the full deterministic diagnostic JSON.
 
@@ -136,6 +190,8 @@ The committed receipts are compact summaries. Running either experiment writes t
     src/frequency_operator_composition/experiment.py        v0 gate + attackers
     src/frequency_operator_composition/cable.py             v1 quasi-active cables
     src/frequency_operator_composition/cable_experiment.py  v1 gate + attackers\n    src/frequency_operator_composition/geometry_vs_kinetics.py  v2 morphology/kinetics factorization
+    src/frequency_operator_composition/modal_ssm.py             non-geometric adaptive modal SSM
+    src/frequency_operator_composition/state_space_attacker.py  v3 matched/compact SSM attacker
     tests/                                                   mechanism and frozen-gate tests
     results/                                                 compact committed receipts
     index.html                                               static result microscope
