@@ -1,0 +1,86 @@
+{
+  "experiment": "v3_modal_state_space_attacker",
+  "seed": 0,
+  "cable_v1_reference": {
+    "real_state_count": 96,
+    "address_effective_rank": 3.977218590346758,
+    "operator_write_effective_rank": 2.5809808523945814,
+    "material_write_effective_rank": 2.904142161763569,
+    "commutator_ratio": 0.06120145337764039,
+    "order_to_jitter_ratio": 3.6015378961384967
+  },
+  "matched_96_state_modal_ssm": {
+    "real_state_count": 96,
+    "address_effective_rank": 3.186935981626053,
+    "operator_write_effective_rank": 3.3058062391253826,
+    "slow_write_effective_rank": 2.5372525737233085,
+    "commutator_ratio": 0.6156706581625321,
+    "order_to_jitter_ratio": 4.902626979669591,
+    "max_fast_residual_after_settle": 1.1869577135254448e-16
+  },
+  "matched_global_slow_attacker": {
+    "operator_write_effective_rank": 1.1400001214340036,
+    "commutator_ratio": 0.12240872240072713
+  },
+  "matched_frozen_operator_attacker": {
+    "operator_write_effective_rank": 0,
+    "commutator_ratio": 0
+  },
+  "compact_12_state_modal_ssm": {
+    "real_state_count": 12,
+    "address_effective_rank": 2.522302861988525,
+    "operator_write_effective_rank": 2.998084952732174,
+    "slow_write_effective_rank": 2.373195386949211,
+    "commutator_ratio": 0.679534865309292,
+    "order_to_jitter_ratio": 33.21052931615021,
+    "max_fast_residual_after_settle": 4.52451607483689e-18
+  },
+  "eight_seed_summary": {
+    "matched_96_state": {
+      "address_effective_rank": {
+        "min": 3.1766259368852103,
+        "median": 3.2626127051536598,
+        "max": 3.306574841740238
+      },
+      "operator_write_effective_rank": {
+        "min": 2.0971203831244374,
+        "median": 2.834500695197189,
+        "max": 3.3142943393205426
+      },
+      "slow_write_effective_rank": {
+        "min": 2.5372525737233085,
+        "median": 2.596215387672098,
+        "max": 2.6180385744696215
+      },
+      "commutator_ratio": {
+        "min": 0.34615909842526654,
+        "median": 0.6277570441937727,
+        "max": 0.8334378366778076
+      }
+    },
+    "compact_12_state": {
+      "address_effective_rank": {
+        "min": 2.4661003671879422,
+        "median": 2.5591339349812467,
+        "max": 2.589274310410996
+      },
+      "operator_write_effective_rank": {
+        "min": 2.030878143579745,
+        "median": 2.7265333913129,
+        "max": 3.1839024257594164
+      },
+      "slow_write_effective_rank": {
+        "min": 2.2249526737815257,
+        "median": 2.3362967485092203,
+        "max": 2.4210131847687872
+      },
+      "commutator_ratio": {
+        "min": 0.4517392037767264,
+        "median": 0.6384667012836666,
+        "max": 0.7930367022394289
+      }
+    }
+  },
+  "verdict": "PASS_V3_MODAL_SSM_ATTACKER_CABLE_SPECIFICITY_NOT_SUPPORTED",
+  "claim_boundary": "The current gates do not distinguish cable matter from a non-geometric modal state-space substrate. This does not show that arbitrary dense RNNs automatically discover the mechanism; it shows that separated resident modes plus local adaptive slow state are sufficient without cable geometry."
+}
