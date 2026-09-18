@@ -23,26 +23,77 @@ The fast modes are damped complex resonators. Slow state is indexed by resident 
 
 Verdict: PASS_V0_OPERATOR_COMPOSITION_GATE
 
-### Why the attackers matter
+The controls separate three statements that are easy to blur together. A stored trace is not enough if it cannot change the later operator. Generic history dependence is not enough if different addresses all write the same one-dimensional operator direction. And A→B != B→A is not enough if A and B did not address different resident structure in the first place.
 
-- Frozen operator: frequency addressing remains, but slow material is denied causal influence. Operator change and the order commutator collapse to zero.
-- Global scalar: history can still matter, but four frequency writes collapse to about 1.15 effective operator dimensions. Generic memory is weaker than address-specific operator rewrite.
-- Homogeneous resident modes: order effects can still exist, but frequency-address rank collapses to 1.0. A→B != B→A alone is not enough.
+## v1 — put the cable back
 
-So the gate requires both an addressable resident operator family and state-dependent noncommuting rewrite.
+v1 replaces the reduced resonators with four heterogeneous quasi-active cable branches. Every branch is a discrete passive cable plus a local recovery variable. The same carrier is injected at the distal end of every branch and the soma reads their proximal outputs.
 
-## Claim boundary
+The important restriction survived implementation: there is still no explicit frequency-indexed slow memory. Every cable compartment owns one slow material scalar. Local voltage energy writes that physical state, and the state changes local cable leakage for the next packet.
 
-This is a synthetic reduced resonator model. It does not establish that biological dendrites use carrier frequency this way, that a cable naturally supplies the slow rewrite law, or that the architecture beats standard recurrent/state-space systems.
+The branch geometries and quasi-active parameters are synthetic and deliberately heterogeneous so four useful resonant addresses exist. This is a mechanism experiment, not a biological parameter fit.
 
-## Next gate
+### Frozen v1 result
 
-v1 puts heterogeneous quasi-active cable branches back into the machine. The strict rule is: no explicit slow[frequency_band] register. Slow state must live on physical branch/mode state. The same A→B / B→A gate and frozen/global/homogeneous attackers will be reused, followed by a matched linear/state-space attacker.
+| quantity | heterogeneous local cable | global-scalar state | frozen operator | homogeneous branches |
+|---|---:|---:|---:|---:|
+| frequency-address effective rank | **3.977** | 3.977 | 3.977 | **1.000** |
+| written-operator effective rank | **2.581** | **1.118** | **0.000** | 1.141 |
+| local material write rank | **2.904** | 3.233 | 3.208 | 1.146 |
+| A→B vs B→A commutator ratio | **0.0612** | 0.0210 | **0.000** | 0.0645 |
+| paired order effect / write-jitter | **3.602x** | 1.895x | 0.000x | 7.858x |
+| max fast residual after settling | **4.75e-6** | 8.04e-7 | 1.01e-4 | 2.67e-9 |
+
+Verdict: PASS_V1_CABLE_OPERATOR_COMPOSITION_GATE
+
+The pattern is the useful part.
+
+- Heterogeneous cable branches make one physical drive frequency-address nearly four independent branch mixtures.
+- Those frequency-selected spatial patterns write about 2.9 effective dimensions of compartment-local material and 2.58 effective dimensions of the later transfer operator.
+- After 800 silent steps the full model's fast-state norm is below 1e-5, yet A→B and B→A still leave different later operators.
+- On a common-random tape, the order effect is about 3.60x the ordinary within-order frequency/amplitude jitter scale.
+- If slow material is allowed to accumulate but forbidden from changing the cable operator, the operator-write rank and commutator both collapse to zero.
+- If all compartment state is collapsed to one global scalar before it acts on the cables, the written-operator family collapses to about 1.12 effective dimensions.
+- If the four branches are made identical, frequency-address rank collapses to exactly 1.0. That attacker can still be order-dependent, which is why order dependence alone is not promoted to the claim.
+
+So v1 recovers the v0 pattern in an actual cable-shaped dynamical substrate without inserting the frequency-slot memory that made the earlier engineering version too easy.
+
+## What this establishes — and what it does not
+
+The synthetic statement is now narrower and stronger:
+
+    carrier frequency
+        -> different heterogeneous cable mixture
+        -> different compartment-local slow write
+        -> changed cable transfer operator
+        -> next packet sees a state-conditioned operator
+        -> A then B differs from B then A after fast state is gone
+
+It still does not establish that real dendrites use frequency carriers this way, that this slow material law corresponds to a particular biological mechanism, or that the architecture is computationally preferable to a standard state-space system. The next useful attacker is therefore not another biological embellishment. It is a matched ordinary dynamical system asked to reproduce the same externally observable operator family and composition under the same state budget.
 
 ## Run
 
     python -m pip install -e '.[test]'
     pytest -q
     python -m frequency_operator_composition.experiment --output results/v0.json
+    python -m frequency_operator_composition.cable_experiment --output results/v1_cable.json
 
-Lineage: FrequencyAddressedNonlinearModalCell → this repo, with conceptual ancestry from NotSoSimpleNeuron, InformationFlow, and Operaattori.
+The committed receipts are compact summaries. Running either experiment writes the full deterministic diagnostic JSON.
+
+## Repository layout
+
+    src/frequency_operator_composition/core.py              reduced v0 resident modes
+    src/frequency_operator_composition/experiment.py        v0 gate + attackers
+    src/frequency_operator_composition/cable.py             v1 quasi-active cables
+    src/frequency_operator_composition/cable_experiment.py  v1 gate + attackers
+    tests/                                                   mechanism and frozen-gate tests
+    results/                                                 compact committed receipts
+    index.html                                               static result microscope
+
+## Lineage
+
+The immediate parent is FrequencyAddressedNonlinearModalCell: hidden matter, sparse stimulation language, frequency as an external address coordinate, and strong boring attackers. The conceptual ancestry also runs through NotSoSimpleNeuron, where receiver state changes what the next event encounters; InformationFlow, where space/frequency/phase form an address; and Operaattori, where physical morphology compiles into an operator.
+
+The question here is deliberately narrower:
+
+**When does an address select not just a channel or memory slot, but a state-conditioned operator whose composition has an order?**
