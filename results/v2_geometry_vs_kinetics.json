@@ -1,0 +1,54 @@
+{
+  "experiment": "v2_geometry_vs_quasi_active_kinetics",
+  "seed": 20260918,
+  "design": {
+    "full": "lengths 5/7/9/11 plus branch-specific g/d/c",
+    "geometry_only": "lengths 5/7/9/11; identical component-wise median g/d/c",
+    "kinetics_only": "all branches length 8; original branch-specific g/d/c",
+    "uniform": "all branches length 8; identical component-wise median g/d/c"
+  },
+  "metrics": {
+    "full": {
+      "address_effective_rank": 3.977218590346758,
+      "gain_normalized_address_rank": 3.993148029592331,
+      "operator_write_effective_rank": 2.5809808523945814,
+      "material_write_effective_rank": 2.904142161763569,
+      "commutator_ratio": 0.06120145337764039,
+      "order_to_jitter_ratio": 3.6015378961384967
+    },
+    "geometry_only": {
+      "address_effective_rank": 1.0839294152511216,
+      "gain_normalized_address_rank": 1.7597965703314993,
+      "operator_write_effective_rank": 1.0790464206612524,
+      "material_write_effective_rank": 1.1084152039027375,
+      "commutator_ratio": 0.042785245823561316,
+      "order_to_jitter_ratio": 5.091820684750179
+    },
+    "kinetics_only": {
+      "address_effective_rank": 3.9999279775853958,
+      "gain_normalized_address_rank": 3.9972103928273315,
+      "operator_write_effective_rank": 1.8209974208492248,
+      "material_write_effective_rank": 2.9053767360277956,
+      "commutator_ratio": 0.04374510034422622,
+      "order_to_jitter_ratio": 2.934786212600916
+    },
+    "uniform": {
+      "address_effective_rank": 1,
+      "gain_normalized_address_rank": 1,
+      "operator_write_effective_rank": 1.085536766716144,
+      "material_write_effective_rank": 1.1040200945982461,
+      "commutator_ratio": 0.04212744161039422,
+      "order_to_jitter_ratio": 5.017161220281
+    }
+  },
+  "findings": {
+    "geometry_only_address_gate_passes": false,
+    "geometry_only_gain_normalized_shape_gate_passes": false,
+    "kinetics_only_preserves_high_address_rank": true,
+    "full_operator_family_exceeds_kinetics_only_by_at_least_0_5": true,
+    "geometry_only_can_remain_order_dependent_without_being_a_good_address": true,
+    "uniform_control_address_rank_is_one": true
+  },
+  "verdict": "GEOMETRY_ONLY_ADDRESS_HYPOTHESIS_NOT_SUPPORTED",
+  "claim_boundary": "Under the tested lengths, distal-input/proximal-readout interface and shared median kinetics, morphology alone does not carry the strong four-way frequency address. Kinetic heterogeneity does. Morphology still increases written-operator richness when combined with kinetic diversity."
+}
