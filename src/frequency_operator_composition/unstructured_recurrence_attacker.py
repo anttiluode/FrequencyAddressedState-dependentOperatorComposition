@@ -242,6 +242,8 @@ def main() -> None:
             for name, row in result["variants"].items()
         },
     }, indent=2))
+    if result["verdict"].startswith("FAIL"):
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
