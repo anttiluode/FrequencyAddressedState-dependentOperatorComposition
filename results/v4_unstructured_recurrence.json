@@ -1,0 +1,111 @@
+{
+  "experiment": "v4_unstructured_recurrence_attacker",
+  "seed": 0,
+  "design": {
+    "state_budget": "all variants use 64 real fast + 32 slow = 96 real states",
+    "training": "none; v4 tests natural possession, not learnability",
+    "gaussian": "dense Gaussian W rescaled to spectral radius 0.95; local unit-pair slow write/feedback",
+    "orthogonal": "dense random orthogonal W rescaled to 0.95; local unit-pair slow write/feedback",
+    "alignment_control": "same dense normal W0 and IO vectors; compare visible unit-pair adaptation with hidden modal-pair adaptation"
+  },
+  "seed0": {
+    "gaussian_dense_local": {
+      "address_effective_rank": 1.2825054993662242,
+      "operator_write_effective_rank": 1.0246489671698564,
+      "slow_write_effective_rank": 1.2679610525706797,
+      "commutator_ratio": 0.0005464436469136056
+    },
+    "orthogonal_dense_local": {
+      "address_effective_rank": 2.163335916135496,
+      "operator_write_effective_rank": 1.4412571965104068,
+      "slow_write_effective_rank": 1.9649092711655203,
+      "commutator_ratio": 0.004381130005894485
+    },
+    "same_fast_matrix_local_alignment": {
+      "address_effective_rank": 2.366762804648107,
+      "operator_write_effective_rank": 1.719208119192583,
+      "slow_write_effective_rank": 2.168790855930545,
+      "commutator_ratio": 0.031141670471815586,
+      "order_to_jitter_ratio": 0.8640788353529234
+    },
+    "same_fast_matrix_modal_alignment_rescue": {
+      "address_effective_rank": 3.0394654890856776,
+      "operator_write_effective_rank": 3.051258502772535,
+      "slow_write_effective_rank": 2.8177047559235535,
+      "commutator_ratio": 0.19833526103412477,
+      "order_to_jitter_ratio": 2.312043845898178
+    }
+  },
+  "eight_seed_summary": {
+    "gaussian_dense_local": {
+      "address_effective_rank": {
+        "min": 1.2825054993662244,
+        "median": 1.5337864859391228,
+        "max": 1.7393305072469334
+      },
+      "operator_write_effective_rank": {
+        "min": 1.02464896716994,
+        "median": 1.1307286678772202,
+        "max": 1.2459098602016905
+      },
+      "commutator_ratio": {
+        "min": 0.0003153779624587173,
+        "median": 0.0009075438972085922,
+        "max": 0.0052160888076916035
+      }
+    },
+    "orthogonal_dense_local": {
+      "address_effective_rank": {
+        "min": 1.869073407679608,
+        "median": 2.151561034928734,
+        "max": 2.262729338185762
+      },
+      "operator_write_effective_rank": {
+        "min": 1.1865905486750785,
+        "median": 1.2843451244045925,
+        "max": 1.6484417897679362
+      },
+      "commutator_ratio": {
+        "min": 0.0019422439910236897,
+        "median": 0.004665028542124465,
+        "max": 0.014722138651193364
+      }
+    },
+    "same_fast_matrix_local_alignment": {
+      "address_effective_rank": {
+        "min": 2.1126985125028384,
+        "median": 2.2208892918184135,
+        "max": 2.366762804648107
+      },
+      "operator_write_effective_rank": {
+        "min": 1.3709868185547516,
+        "median": 1.5059297903126838,
+        "max": 1.719208119192583
+      },
+      "commutator_ratio": {
+        "min": 0.012018764204449613,
+        "median": 0.0174201782083942,
+        "max": 0.031141670471815586
+      }
+    },
+    "same_fast_matrix_modal_alignment_rescue": {
+      "address_effective_rank": {
+        "min": 2.860200091505383,
+        "median": 3.040537177184941,
+        "max": 3.267007228208083
+      },
+      "operator_write_effective_rank": {
+        "min": 2.1898739691622775,
+        "median": 2.4751422494342523,
+        "max": 3.051258502772535
+      },
+      "commutator_ratio": {
+        "min": 0.06386330095805129,
+        "median": 0.1307069652004662,
+        "max": 0.2741928903431075
+      }
+    }
+  },
+  "verdict": "PASS_V4_UNSTRUCTURED_RECURRENCE_ATTACKER_MODAL_ALIGNMENT_SURVIVES",
+  "claim_boundary": "Untrained dense recurrence with slow state written in arbitrary unit coordinates does not naturally reproduce the gate. Exposing a dense system's hidden modal coordinates to both slow write and operator rewrite restores it. This does not show that training cannot learn such alignment."
+}

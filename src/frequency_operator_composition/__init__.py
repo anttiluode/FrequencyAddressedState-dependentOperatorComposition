@@ -1,3 +1,4 @@
+from .dense_recurrence import DenseAdaptiveRNN, HiddenModalDenseRNN
 from .modal_ssm import AdaptiveModalSSM, run_modal_sequence
 from .cable import (
     BranchSpec,
@@ -11,6 +12,8 @@ from .cable import (
 from .core import MatterConfig, ResidentModalMatter, effective_rank, run_sequence
 
 __all__ = [
+    "DenseAdaptiveRNN",
+    "HiddenModalDenseRNN",
     "AdaptiveModalSSM",
     "run_modal_sequence",
     "BranchSpec",

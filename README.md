@@ -161,6 +161,65 @@ frequency-addressed noncommuting operator composition
 
 That is a stronger simplification than v2. But it does **not** prove that an arbitrary dense RNN or generic random state-space model automatically has the mechanism. v3 deliberately gives the boring attacker a modal state-space inductive bias. So the next boundary is no longer “cable versus no cable”; it is **explicit spectral/modal structure versus unstructured recurrence**.
 
+## v4 — remove supplied modal organization
+
+v3 showed that cable geometry was unnecessary, but it still handed the attacker an explicit modal coordinate system. v4 attacks that remaining privilege.
+
+Every v4 arm has the same **96-real-state budget**: 64 real fast states plus 32 slow states. No learning is allowed yet; this gate asks whether generic dense recurrence naturally possesses the same addressed persistent operator family.
+
+Two genuinely unstructured fast systems are tested first:
+
+- a dense Gaussian recurrent matrix, rescaled only to spectral radius 0.95;
+- a dense random orthogonal recurrent matrix, also rescaled to 0.95.
+
+In both, slow state belongs to arbitrary visible unit pairs. A carrier can excite whatever eigenmodes the dense matrix happens to contain, but the persistent write rule is not told what those modes are.
+
+The result is a strong failure.
+
+| seed-0 quantity | Gaussian dense | Orthogonal dense |
+|---|---:|---:|
+| address rank | 1.283 | 2.163 |
+| written-operator rank | 1.025 | 1.441 |
+| slow-write rank | 1.268 | 1.965 |
+| commutator ratio | 0.00055 | 0.00438 |
+
+Across eight seeds, Gaussian recurrence never exceeds **1.739** address rank or **1.246** written-operator rank. Orthogonal recurrence does better spectrally, but still never exceeds **2.263** address rank or **1.648** written-operator rank. Its largest commutator ratio is only **0.0147**.
+
+That leaves an ambiguity: perhaps dense recurrence is fine, and the only missing piece is that adaptation is writing in the wrong coordinates.
+
+So v4 adds a rescue control. One dense normal recurrence is built as
+
+[
+W_0 = Q B Q^T
+]
+
+where (B) contains a broad bank of hidden 2-D rotation modes and (Q) randomly mixes them into dense visible coordinates. The **same (W_0), same input vector, same output vector, and same 96-state budget** are then used in two ways:
+
+| same dense fast matrix | visible-unit adaptation | hidden-modal adaptation |
+|---|---:|---:|
+| seed-0 address rank | 2.367 | **3.039** |
+| seed-0 written-operator rank | 1.719 | **3.051** |
+| seed-0 slow-write rank | 2.169 | **2.818** |
+| seed-0 commutator ratio | 0.0311 | **0.198** |
+| order effect / jitter | 0.864x | **2.312x** |
+
+Across eight seeds, visible-unit adaptation stays below **1.720** written-operator rank and **0.0312** commutator ratio. Modal-aligned adaptation stays above **2.190** written-operator rank and **0.0639** commutator ratio, with median operator rank **2.475**.
+
+Verdict: **PASS_V4_UNSTRUCTURED_RECURRENCE_ATTACKER_MODAL_ALIGNMENT_SURVIVES**
+
+So the current boundary sharpens again:
+
+```text
+dense recurrence is not enough
+long-lived complex eigenmodes are not enough
+local persistent adaptation is not enough
+
+persistent write + operator rewrite
+must be aligned with useful resident dynamical coordinates
+```
+
+This is an inductive-bias result, not a theorem about RNNs. v4 deliberately uses **untrained** dense recurrent systems. A trained dense RNN might learn an internal basis that aligns persistent adaptation with useful modes. That becomes the next attacker.
+
 ## What this establishes — and what it does not
 
 The synthetic statement is now narrower and stronger:
@@ -172,7 +231,7 @@ The synthetic statement is now narrower and stronger:
         -> next packet sees a state-conditioned operator
         -> A then B differs from B then A after fast state is gone
 
-It still does not establish that real dendrites use frequency carriers this way or that this slow material law corresponds to a particular biological mechanism. v2 rules out cable length as the load-bearing spectral address, and v3 goes further: a non-geometric modal state-space model reproduces the operator-composition gate at the same state budget, while a 12-state version already crosses the weaker multi-address gate. The surviving question is therefore whether explicit modal structure is essential, or whether an unstructured recurrent system under a matched parameter/training budget can discover the same family.
+It still does not establish that real dendrites use frequency carriers this way or that this slow material law corresponds to a particular biological mechanism. v2 rules out cable length as the load-bearing spectral address, and v3 goes further: a non-geometric modal state-space model reproduces the operator-composition gate at the same state budget, while a 12-state version already crosses the weaker multi-address gate. The surviving question after v4 is narrower: untrained unstructured recurrence does not naturally reproduce the family, but modal-aligned adaptation does. The next test is whether learning can discover that alignment rather than having it supplied.
 
 ## Run
 
@@ -181,6 +240,7 @@ It still does not establish that real dendrites use frequency carriers this way 
     python -m frequency_operator_composition.experiment --output results/v0.json
     python -m frequency_operator_composition.cable_experiment --output results/v1_cable.json\n    python -m frequency_operator_composition.geometry_vs_kinetics --output results/v2_geometry_vs_kinetics.json
     python -m frequency_operator_composition.state_space_attacker --output results/v3_modal_ssm.json
+    python -m frequency_operator_composition.unstructured_recurrence_attacker --output results/v4_unstructured_recurrence.json
 
 The committed receipts are compact summaries. Running either experiment writes the full deterministic diagnostic JSON.
 
@@ -192,6 +252,8 @@ The committed receipts are compact summaries. Running either experiment writes t
     src/frequency_operator_composition/cable_experiment.py  v1 gate + attackers\n    src/frequency_operator_composition/geometry_vs_kinetics.py  v2 morphology/kinetics factorization
     src/frequency_operator_composition/modal_ssm.py             non-geometric adaptive modal SSM
     src/frequency_operator_composition/state_space_attacker.py  v3 matched/compact SSM attacker
+    src/frequency_operator_composition/dense_recurrence.py       dense recurrent controls
+    src/frequency_operator_composition/unstructured_recurrence_attacker.py  v4 alignment boundary
     tests/                                                   mechanism and frozen-gate tests
     results/                                                 compact committed receipts
     index.html                                               static result microscope
