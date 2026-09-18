@@ -1,14 +1,19 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Frequency-addressed operator composition — v0</title>
-<style>body{max-width:900px;margin:40px auto;padding:0 20px;background:#0d1117;color:#e6edf3;font:16px/1.55 system-ui}h1{font-size:clamp(2rem,6vw,4rem);line-height:1}table{border-collapse:collapse;width:100%}td,th{padding:10px;border-bottom:1px solid #30363d;text-align:right}td:first-child,th:first-child{text-align:left}.ok{color:#7ee787}.box{padding:18px;border:1px solid #30363d;border-radius:12px;background:#161b22}a{color:#79c0ff}</style></head><body>
-<p>synthetic mechanism gate / v0</p><h1>Frequency-addressed<br>operator composition</h1>
-<div class="box"><strong>A→B ≠ B→A</strong> only counts here if frequency addresses distinct resident modes and slow local state changes the operator seen by the next write.</div>
-<h2>Frozen v0</h2><table><tr><th>quantity</th><th>full</th><th>global</th><th>frozen</th><th>homogeneous</th></tr>
-<tr><td>address rank</td><td>3.443</td><td>3.443</td><td>3.443</td><td>1.000</td></tr>
-<tr><td>written operator rank</td><td>3.078</td><td>1.152</td><td>0.000</td><td>1.398</td></tr>
-<tr><td>commutator ratio</td><td>0.564</td><td>0.114</td><td>0.000</td><td>0.309</td></tr>
-<tr><td>order / jitter</td><td>3.374x</td><td>3.101x</td><td>0.000x</td><td>5.000x</td></tr></table>
-<h2 class="ok">PASS_V0_OPERATOR_COMPOSITION_GATE</h2>
-<p>The reduced model is intentionally not yet a dendritic cable. v1 must recover this pattern with heterogeneous quasi-active cable branches and no explicit frequency-indexed memory bank.</p>
-<p><a href="README.md">full ledger</a> · <a href="results/v0.json">receipt</a></p></body></html>
+<title>Frequency-addressed operator composition</title>
+<style>body{max-width:940px;margin:40px auto;padding:0 20px;background:#0d1117;color:#e6edf3;font:16px/1.55 system-ui}h1{font-size:clamp(2rem,6vw,4.4rem);line-height:1}table{border-collapse:collapse;width:100%;margin:16px 0 28px}td,th{padding:10px;border-bottom:1px solid #30363d;text-align:right}td:first-child,th:first-child{text-align:left}.ok{color:#7ee787}.box{padding:18px;border:1px solid #30363d;border-radius:12px;background:#161b22}.muted{color:#9fb0c2}a{color:#79c0ff}</style></head><body>
+<p class="muted">frequency-addressed state-dependent operator composition</p>
+<h1>A→B is not B→A</h1>
+<div class="box">The claim only counts when frequency addresses distinct resident structure, the first write changes the operator seen by the second, and the difference survives after fast state has settled away.</div>
+<h2>v1 — heterogeneous quasi-active cable branches</h2>
+<table><tr><th>quantity</th><th>local cable</th><th>global scalar</th><th>frozen</th><th>homogeneous</th></tr>
+<tr><td>address rank</td><td>3.977</td><td>3.977</td><td>3.977</td><td>1.000</td></tr>
+<tr><td>written operator rank</td><td>2.581</td><td>1.118</td><td>0.000</td><td>1.141</td></tr>
+<tr><td>commutator ratio</td><td>0.0612</td><td>0.0210</td><td>0.000</td><td>0.0645</td></tr>
+<tr><td>order / jitter</td><td>3.602x</td><td>1.895x</td><td>0.000x</td><td>7.858x</td></tr></table>
+<h2 class="ok">PASS_V1_CABLE_OPERATOR_COMPOSITION_GATE</h2>
+<p>Slow state lives on cable compartments, not in an explicit frequency-slot bank. The homogeneous attacker is deliberately instructive: it can remain order-dependent while losing frequency-address structure, so order dependence alone is not the result.</p>
+<h2>v0 — reduced resident modes</h2>
+<p>v0 isolated the same mechanism before cables were introduced: address rank 3.443, written-operator rank 3.078, commutator ratio 0.564, paired order/jitter 3.374x.</p>
+<p><a href="README.md">full ledger</a> · <a href="results/v1_cable.json">v1 receipt</a> · <a href="results/v0.json">v0 receipt</a></p>
+</body></html>
